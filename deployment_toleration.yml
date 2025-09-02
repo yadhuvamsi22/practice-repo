@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: toleration
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: yadhuvamsi/simple-webapplication:latest
+        ports:
+        - containerPort: 80
+      tolerations:
+      -  key: "application"
+         operator: "Equal"
+         value: "nginx1"
+         effect: "NoSchedule"
